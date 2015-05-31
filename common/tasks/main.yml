@@ -1,0 +1,39 @@
+- name: Update source list file to sohu
+  sudo: yes
+  copy: src=sources.list dest=/etc/apt/sources.list
+
+- name: Update apt cache
+  sudo: yes
+  apt: update_cache=yes
+
+- name: Add twer user
+  sudo: yes
+  user: 
+    name=twer 
+    password=$6$8VBB.474$zN27HSpM0WA6rK6ir8HwRSWviX.cBiEyhRI4ZF7JBrxo/5v0BhvXw9EDrgSH6N2cqLzVPSTTSqwromw0chroo0
+    shell=/bin/bash
+
+- name: Sync private key of twer
+  sudo: yes
+  authorized_key: 
+    user=twer 
+    key="{{ lookup('file', 'id_rsa.pub') }}"
+
+- name: Set local time zone
+  sudo: yes
+  command: timedatectl set-timezone Asia/Shanghai
+
+- name: Install default packages
+  sudo: yes
+  apt: pkg={{ item }} state=installed
+  with_items:
+      - libpq-dev # Required for Ansible to interact with postgres
+      - python-psycopg2 # Required for Ansible to interact with postgres
+      - nginx
+      - openjdk-7-jdk
+      - git
+      - npm
+      - nodejs
+      - tree
+      - unzip
+

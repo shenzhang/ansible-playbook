@@ -1,0 +1,22 @@
+- name: Install Zookeeper
+  sudo: yes
+  apt: pkg={{ item }} state=installed
+  with_items:
+      - zookeeperd
+
+
+- name: Update zookeeper configuration file
+  sudo: yes
+  copy: src=zoo.cfg dest=/etc/zookeeper/conf/zoo.cfg
+
+- name: Create zookeeper data directory
+  sudo: yes
+  file: path=/var/zookeeper state=directory owner=zookeeper group=zookeeper
+
+- name: Create 'myid' file in data directory
+  sudo: yes
+  template: src=myid dest=/var/zookeeper/myid owner=zookeeper group=zookeeper
+
+- name: Restart zookeeper service
+  sudo: yes
+  service: name=zookeeper state=restarted
