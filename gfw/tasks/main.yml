@@ -1,0 +1,3 @@
+- name: Update source list file to sohu
+  sudo: yes
+  copy: src=sources.list dest=/etc/apt/sources.list

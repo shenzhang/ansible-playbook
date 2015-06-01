@@ -1,0 +1,3 @@
+# This file will be put under /etc/sudoers.d
+
+twer ALL=(ALL) NOPASSWD:ALL

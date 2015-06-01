@@ -1,0 +1,17 @@
+- name: Install boto for AWS api
+  sudo: yes
+  apt: pkg={{ item }} state=installed
+  with_items:
+      - python-boto
+
+- name: create EC2 instance
+  ec2:
+    region: ap-northeast-1
+    key_name: mykey
+    instance_type: t2.micro
+    image: ami-936d9d93
+    wait: yes
+    group: default
+    count: 1
+    vpc_subnet_id: subnet-c5416bb1
+    assign_public_ip: yes
