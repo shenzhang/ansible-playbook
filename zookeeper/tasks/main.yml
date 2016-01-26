@@ -9,6 +9,10 @@
   sudo: yes
   copy: src=zoo.cfg dest=/etc/zookeeper/conf/zoo.cfg
 
+- name: Create 'myid' file in config directory
+  sudo: yes
+  template: src=myid dest=/etc/zookeeper/conf/myid
+
 - name: Create zookeeper data directory
   sudo: yes
   file: path=/var/zookeeper state=directory owner=zookeeper group=zookeeper
