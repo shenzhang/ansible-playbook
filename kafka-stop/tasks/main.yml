@@ -1,0 +1,5 @@
+- name: Stop kafka
+  shell: /usr/share/kafka/bin/kafka-server-stop.sh
+    
+- name: Check kafka has been stoped
+  wait_for: port=9092 state=stopped

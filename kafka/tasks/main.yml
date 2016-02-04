@@ -1,0 +1,39 @@
+- name: Ensure {{temp_dir}} dir exists
+  sudo: yes
+  file: path={{temp_dir}} state=directory
+
+- name: Copy kafka install file to server
+  sudo: yes
+  copy: src={{kafka_file}} dest={{temp_dir}}/kafka.tgz
+
+- name: Delete current install dir
+  sudo: yes
+  shell: rm -rf {{install_dir}}
+
+- name: Ensure {{install_dir}} dir exists
+  sudo: yes
+  file: path={{install_dir}} state=directory
+
+- name: Unzip kafka
+  sudo: yes
+  shell: tar xzf {{temp_dir}}/kafka.tgz -C {{install_dir}} --strip 1
+  
+- name: Define kafka instance id
+  when: id is undefined
+  set_fact:
+    id: 0
+  
+- name: Copy property files to kafka config dir
+  sudo: yes
+  template: src={{item}} dest={{install_dir}}/config/{{item}}
+  with_items:
+    - server.properties
+    - log4j.properties
+
+- name: Copy the customized start script to 'bin' folder
+  sudo: yes
+  template: src=kafka-start.sh dest={{install_dir}}/bin/kafka-start.sh mode="0755"
+
+- name: Change the owner to {{kafka_user}}:{{kafka_group}}
+  sudo: yes
+  file: path={{install_dir}} owner={{kafka_user}} group={{kafka_group}} recurse=yes

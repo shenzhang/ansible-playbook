@@ -1,0 +1,5 @@
+- name: Start kafka
+  shell: nohup /usr/share/kafka/bin/kafka-start.sh -daemon > /dev/null
+    
+- name: Check kafka has been started
+  wait_for: port=9092

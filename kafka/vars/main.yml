@@ -1,0 +1,6 @@
+kafka_file: kafka_2.10-0.8.2.2.tgz
+temp_dir: /var/kafka
+install_dir: /usr/share/kafka
+
+kafka_user: vagrant
+kafka_group: vagrant
