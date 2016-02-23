@@ -1,0 +1,20 @@
+- name: Create temp folder
+  sudo: yes
+  file: path={{temp_dir}} state=directory
+
+- name: Download hbase
+  sudo: yes
+  get_url: url={{download_url}} dest={{temp_dir}}/hbase.tgz mode=0444
+  
+- name: Delete current install dir
+  sudo: yes
+  shell: rm -rf {{install_dir}}
+
+- name: Ensure {{install_dir}} dir exists
+  sudo: yes
+  file: path={{install_dir}} state=directory
+
+- name: Unzip hbase
+  sudo: yes
+  shell: tar xzf {{temp_dir}}/hbase.tgz -C {{install_dir}} --strip 1
+  

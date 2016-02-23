@@ -1,0 +1,18 @@
+- name: Add java apt repo
+  sudo: yes
+  apt_repository: repo='ppa:webupd8team/java'
+ 
+- name: Update apt cache
+  sudo: yes
+  apt: update_cache=yes
+  
+- name: Automatically select the Oracle License
+  tags: java
+  shell: echo oracle-java8-installer shared/accepted-oracle-license-v1-1 select true | sudo /usr/bin/debconf-set-selections
+  
+- name: Install jdk8
+  sudo: yes
+  apt: name={{ item }} state=present
+  with_items:
+      - oracle-java8-installer
+      - oracle-java8-set-default

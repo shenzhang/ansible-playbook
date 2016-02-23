@@ -1,0 +1,6 @@
+- name: collect facts
+  setup:
+  register: facts
+
+- name: print all facts
+  debug: var=facts

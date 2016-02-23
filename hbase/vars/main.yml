@@ -1,0 +1,4 @@
+download_url: http://apache.opencas.org/hbase/0.98.17/hbase-0.98.17-hadoop2-bin.tar.gz
+temp_dir: /var/hbase
+install_dir: /usr/share/hbase
+
