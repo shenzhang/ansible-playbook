@@ -1,15 +1,11 @@
-- name: Add repository key of DataStax
-  command: bash -c "curl -L http://debian.datastax.com/debian/repo_key | sudo apt-key add -"
-
-- name: Copy cassandra repo source.list
+- name: Delete current install dir
   sudo: yes
-  copy: src=cassandra.sources.list dest=/etc/apt/sources.list.d/cassandra.sources.list
-  notify: 
-    - update apt cache
+  shell: rm -rf {{install_dir}}
 
-- name: Install JNA and Cassandra
+- name: Ensure {{install_dir}} dir exists
   sudo: yes
-  apt: pkg={{ item }} state=installed
-  with_items:
-      - libjna-java
-      - cassandra
+  file: path={{install_dir}} state=directory
+
+- name: Unzip kafka
+  sudo: yes
+  shell: tar xzf {{temp_dir}}/kafka.tgz -C {{install_dir}}

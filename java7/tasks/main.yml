@@ -1,5 +1,9 @@
-- name: Install default packages
+- name: Install jdk7
   sudo: yes
   apt: pkg={{ item }} state=installed
   with_items:
       - openjdk-7-jdk
+
+- name: Set JAVA_HOME variable
+  set_fact:
+    java_home: /usr/lib/jvm/java-7-openjdk-amd64

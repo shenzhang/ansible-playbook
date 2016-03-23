@@ -1,0 +1,7 @@
+install_file: hadoop-2.6.4.tar.gz
+temp_dir: /var/hadoop/install
+install_dir: /usr/share/hadoop
+data_dir: /var/hadoop
+
+user: hadoop
+group: hadoop

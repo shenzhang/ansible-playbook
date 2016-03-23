@@ -17,12 +17,12 @@
 - name: Unzip kafka
   sudo: yes
   shell: tar xzf {{temp_dir}}/kafka.tgz -C {{install_dir}} --strip 1
-  
+
 - name: Define kafka instance id
   when: id is undefined
   set_fact:
     id: 0
-  
+
 - name: Copy property files to kafka config dir
   sudo: yes
   template: src={{item}} dest={{install_dir}}/config/{{item}}
@@ -32,7 +32,10 @@
 
 - name: Copy the customized start script to 'bin' folder
   sudo: yes
-  template: src=kafka-start.sh dest={{install_dir}}/bin/kafka-start.sh mode="0755"
+  template: src={{item}} dest={{install_dir}}/bin/{{item}} mode="0755"
+  with_items:
+    - kafka-start.sh
+    - kafka-stop.sh
 
 - name: Change the owner to {{kafka_user}}:{{kafka_group}}
   sudo: yes

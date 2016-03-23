@@ -1,0 +1,2 @@
+install_file: apache-cassandra-3.3-bin.tar.gz
+install_dir: /usr/share/cassandra

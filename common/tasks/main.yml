@@ -6,9 +6,9 @@
   sudo: yes
   command: timedatectl set-timezone Asia/Shanghai
 
-# - name: Update apt cache
-#   sudo: yes
-#   apt: update_cache=yes
+- name: Update apt cache
+  sudo: yes
+  apt: update_cache=yes
 
 - name: Install default packages
   sudo: yes
@@ -19,4 +19,3 @@
       - git
       - tree
       - unzip
-      
