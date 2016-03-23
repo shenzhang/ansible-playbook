@@ -1,0 +1,3 @@
+- name: Install rabbitmq-server
+  sudo: yes
+  apt: pkg=rabbitmq-server state=installed
